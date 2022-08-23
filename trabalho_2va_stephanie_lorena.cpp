@@ -59,7 +59,7 @@ void menuautomovel () {
 //interfaces
 
 //funcoes
-
+//lista---------------------------------------------------
 int listavazia(modelo *p) {
 	
 	if(p->codigomodelo==0) {
@@ -150,9 +150,19 @@ void alteramodelo(modelo *p, int codigo) {
 }
 
 void excluimodelo(modelo *p, int codigo){
-	//verificar se a função excluir e necessaria, pois ela exige medidas de garantia de integridade de dados.	
+	//verificar se a funcao excluir e necessaria, pois ela exige medidas de garantia de integridade de dados.	
 }
+//lista----------------------------------------------------------------------------------------
 
+//pilha------------------------------------------------------------------------------------
+pilhacarro *criacarro(carro *c) {
+	carro *q, *nova;
+	
+	q=c;
+	
+	
+}
+//pilha------------------------------------------------------------------------------------
 //funcoes
 
 int main(){
