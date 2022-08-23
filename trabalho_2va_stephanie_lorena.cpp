@@ -1,15 +1,20 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<ctype.h>
+
+#define TAM 30
+#define TAM2 10
+
 
 typedef struct listamodelo {
-	char nome;
+	char nome[TAM];
 	int codigomodelo;
-	struct listamoelo *prox;
+	struct listamodelo *prox;
 }modelo;
 
 typedef struct filacliente {
-	char nome;
+	char nome[TAM];
 	int id;
 	struct filacliente *prox;
 }cliente;
@@ -20,9 +25,9 @@ typedef struct pont{
 }ponteiros;
 
 typedef struct pilhacarro {
-	char modelo;
+	char modelo[TAM];
 	int codigomodelo;
-	char placa;
+	char placa[TAM2];
 	struct pilhacarro *prox;
 }carro;
 
@@ -50,30 +55,64 @@ void menuautomovel () {
 }
 //interfaces
 
-//funções
-void listamodelo() {
-	
-}
-
-modelo *criamodelo(modelo *p) {
-	modelo *q, *nova;
+//funcoes
+void listamodelo(modelo *p) {
+	modelo *q;
 	
 	q=p;
-	nova=(modelo*)malloc(sizeof(modelo));
-	if() {
+	
+	printf("\n=================================================================\n");
+	printf("\nLista de Modelos: \n");
+	printf("\n=================================================================\n");
+	
+	while(q->prox!=NULL ) {
+		printf("%i - %s\n",q->codigomodelo,q->nome);
 		
+		q=q->prox;
+	}
+	printf("%i - %s\n",q->codigomodelo,q->nome);
+}
+
+modelo *criamodelo(modelo *p, modelo *u) {
+	modelo *q, *nova;
+	int x;
+	
+	q=p;
+	
+	if(q->codigomodelo==0) {
+		fflush(stdin);
+		printf("Digite o nome do modelo: ");
+		gets(q->nome);
+		q->codigomodelo=1;
+		
+		return q;
+	}
+	else {
+		nova=(modelo*)malloc(sizeof(modelo));
+		
+		x=u->codigomodelo;
+		fflush(stdin);
+		printf("Digite o nome do modelo: ");
+		gets(nova->nome);
+		
+		nova->codigomodelo=x+1;
+		u->prox=nova;
+		nova->prox=NULL;
+		
+		return nova;
 	}
 	
-	return nova;
+	
 }
 
 
-//funções
+//funcoes
 
 int main(){
-	int Op=0;
+	int Op=0, codigo;
+	
 	ponteiros *i=(ponteiros*)malloc(sizeof(ponteiros));//fila de clientes
-	modelo *p, *f=(modelo*)malloc(sizeof(modelo));//lista de modelos
+	modelo *f, *p=(modelo*)malloc(sizeof(modelo));//lista de modelos
 	carro *c=(carro*)malloc(sizeof(carro));//pilha de carros
 	
 	//fila de clientes
@@ -81,15 +120,12 @@ int main(){
 	i->u=NULL;
 	
 	//lista de modelos
-	f->prox=NULL;
-	f->nome="";
-	f->codigomodelo=0;
-	p=f;
+	p->prox=NULL;
+	p->codigomodelo=0;
+	f=p;
 	
 	//pilha de carros
 	c->codigomodelo=0;
-	c->modelo="";
-	c->placa="";
 	c->prox=NULL;
 	
 	printf("\n=================================================================\n");
@@ -107,6 +143,7 @@ int main(){
 		
 		switch(Op) {
 		case 1:
+			f=criamodelo(p,f);
 			break;
 		case 2:
 			break;
@@ -119,6 +156,7 @@ int main(){
 		case 6:
 			break;
 		case 7:
+			listamodelo(p);
 			break;
 		case 8:
 			break;
