@@ -45,7 +45,10 @@ void menuinicial() {
 	printf("7 - Listar modelos.\n");
 	printf("8 - Listar carros.\n");
 	printf("9 - Listar clientes.\n");
-	printf("10 - Fazer busca.\n");
+	printf("10 - Alterar modelo.\n");
+	printf("11 - Alterar automovel.\n");
+	printf("12 - Alterar cliente.\n");
+	printf("13 - Fazer busca.\n");
 	printf("0 - Sair.\n");
 	printf("\n=================================================================\n");
 }
@@ -56,6 +59,17 @@ void menuautomovel () {
 //interfaces
 
 //funcoes
+
+int listavazia(modelo *p) {
+	
+	if(p->codigomodelo==0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
 void listamodelo(modelo *p) {
 	modelo *q;
 	
@@ -65,12 +79,19 @@ void listamodelo(modelo *p) {
 	printf("\nLista de Modelos: \n");
 	printf("\n=================================================================\n");
 	
-	while(q->prox!=NULL ) {
+	if(listavazia(q)) {
+		printf("\nA lista esta vazia!\n");
+	}
+	else{
+		while(q->prox!=NULL ) {
 		printf("%i - %s\n",q->codigomodelo,q->nome);
 		
 		q=q->prox;
+		}
+		printf("%i - %s\n",q->codigomodelo,q->nome);
 	}
-	printf("%i - %s\n",q->codigomodelo,q->nome);
+	
+	printf("\n=================================================================\n\n");
 }
 
 modelo *criamodelo(modelo *p, modelo *u) {
@@ -79,7 +100,7 @@ modelo *criamodelo(modelo *p, modelo *u) {
 	
 	q=p;
 	
-	if(q->codigomodelo==0) {
+	if(listavazia(q)) {
 		fflush(stdin);
 		printf("Digite o nome do modelo: ");
 		gets(q->nome);
@@ -100,11 +121,37 @@ modelo *criamodelo(modelo *p, modelo *u) {
 		nova->prox=NULL;
 		
 		return nova;
-	}
-	
-	
+	}	
 }
 
+void alteramodelo(modelo *p, int codigo) {
+	modelo *q;
+	int flag=0;
+	
+	q=p;
+	
+	if(listavazia(q)) {
+		exit(0);
+	}
+	else {
+		for(q;q->prox!=NULL;q=q->prox) {
+			if(q->codigomodelo==codigo) {
+				fflush(stdin);
+				printf("\nDigite o novo nome do modelo: \n");
+				gets(q->nome);
+				flag++;
+			}
+		}
+		if(flag==0){
+			printf("\nNumero invalido!\n\n");
+			system("pause");
+		}
+	}
+}
+
+void excluimodelo(modelo *p, int codigo){
+	//verificar se a função excluir e necessaria, pois ela exige medidas de garantia de integridade de dados.	
+}
 
 //funcoes
 
@@ -124,7 +171,7 @@ int main(){
 	p->codigomodelo=0;
 	f=p;
 	
-	//pilha de carros
+	//pilha de carros 
 	c->codigomodelo=0;
 	c->prox=NULL;
 	
@@ -142,37 +189,72 @@ int main(){
 		system("cls");
 		
 		switch(Op) {
-		case 1:
-			f=criamodelo(p,f);
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		case 7:
-			listamodelo(p);
-			break;
-		case 8:
-			break;
-		case 9:
-			break;
-		case 10:
-			break;
-		case 0:
-			exit(0);
-			break;
-		default:
-			printf("\nOpcao invalida!\n\n");
-			system("pause");
-			system("cls");
-			break;
-	}
+			case 1:
+				f=criamodelo(p,f);
+				system("pause");
+				system("cls");
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				/*listamodelo(p);
+				if(listavazia(p)) {
+					system("pause");
+					system("cls");
+					break;
+				}
+				else {
+					scanf("%i",&codigo);
+					excluimodelo(p,codigo);	
+				}
+				system("pause");
+				system("cls");*/
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				listamodelo(p);
+				system("pause");
+				system("cls");
+				break;
+			case 8:
+				break;
+			case 9:
+				break;
+			case 10:
+				printf("Escolha o modelo que deseja alterar:\n");
+				listamodelo(p);
+				if(listavazia(p)) {
+					system("pause");
+					system("cls");
+					break;
+				}
+				else {
+					scanf("%i",&codigo);
+					alteramodelo(p,codigo);	
+				}
+				system("pause");
+				system("cls");
+				break;
+			case 11:
+				break;
+			case 12:
+				break;
+			case 13:
+				break;
+			case 0:
+				exit(0);
+				break;
+			default:
+				printf("\nOpcao invalida!\n\n");
+				system("pause");
+				system("cls");
+				break;
+		}
 	}while(Op!=0);
 	
 	
