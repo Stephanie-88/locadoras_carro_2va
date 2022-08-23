@@ -1,15 +1,20 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<ctype.h>
+
+#define TAM 30
+#define TAM2 10
+
 
 typedef struct listamodelo {
-	char nome;
+	char nome[TAM];
 	int codigomodelo;
-	struct listamoelo *prox;
+	struct listamodelo *prox;
 }modelo;
 
 typedef struct filacliente {
-	char nome;
+	char nome[TAM];
 	int id;
 	struct filacliente *prox;
 }cliente;
@@ -20,9 +25,9 @@ typedef struct pont{
 }ponteiros;
 
 typedef struct pilhacarro {
-	char modelo;
+	char modelo[TAM];
 	int codigomodelo;
-	char placa;
+	char placa[TAM2];
 	struct pilhacarro *prox;
 }carro;
 
@@ -55,13 +60,27 @@ void listamodelo() {
 	
 }
 
-modelo *criamodelo(modelo *p) {
+modelo *criamodelo(modelo *p, modelo *u) {
 	modelo *q, *nova;
 	
 	q=p;
-	nova=(modelo*)malloc(sizeof(modelo));
-	if() {
+	
+	if(q->codigomodelo==0) {
+		fflush(stdin);
+		printf("Digite o nome do modelo: ");
+		gets(q->nome);
+		q->codigomodelo=1;
+	}
+	else {
+		nova=(modelo*)malloc(sizeof(modelo));
 		
+		u->prox=nova;
+		nova->codigomodelo=u->codigomodelo++;
+		nova->prox=NULL;
+		
+		fflush(stdin);
+		printf("Digite o nome do modelo: ");
+		gets(q->nome);
 	}
 	
 	return nova;
@@ -71,7 +90,8 @@ modelo *criamodelo(modelo *p) {
 //funções
 
 int main(){
-	int Op=0;
+	int Op=0, codigo;
+	
 	ponteiros *i=(ponteiros*)malloc(sizeof(ponteiros));//fila de clientes
 	modelo *p, *f=(modelo*)malloc(sizeof(modelo));//lista de modelos
 	carro *c=(carro*)malloc(sizeof(carro));//pilha de carros
@@ -82,14 +102,11 @@ int main(){
 	
 	//lista de modelos
 	f->prox=NULL;
-	f->nome="";
 	f->codigomodelo=0;
 	p=f;
 	
 	//pilha de carros
 	c->codigomodelo=0;
-	c->modelo="";
-	c->placa="";
 	c->prox=NULL;
 	
 	printf("\n=================================================================\n");
@@ -107,6 +124,7 @@ int main(){
 		
 		switch(Op) {
 		case 1:
+			f=criamodelo(p,f);
 			break;
 		case 2:
 			break;
