@@ -75,6 +75,7 @@ void listamodelo(modelo *p) {
 
 modelo *criamodelo(modelo *p, modelo *u) {
 	modelo *q, *nova;
+	int x;
 	
 	q=p;
 	
@@ -89,11 +90,12 @@ modelo *criamodelo(modelo *p, modelo *u) {
 	else {
 		nova=(modelo*)malloc(sizeof(modelo));
 		
+		x=u->codigomodelo;
 		fflush(stdin);
 		printf("Digite o nome do modelo: ");
 		gets(nova->nome);
 		
-		nova->codigomodelo=u->codigomodelo++;
+		nova->codigomodelo=x+1;
 		u->prox=nova;
 		nova->prox=NULL;
 		
