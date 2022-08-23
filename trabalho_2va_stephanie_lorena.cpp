@@ -124,7 +124,7 @@ int main(){
 	p->codigomodelo=0;
 	f=p;
 	
-	//pilha de carros
+	//pilha de carros 
 	c->codigomodelo=0;
 	c->prox=NULL;
 	
