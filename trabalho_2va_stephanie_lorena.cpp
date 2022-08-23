@@ -70,6 +70,8 @@ modelo *criamodelo(modelo *p, modelo *u) {
 		printf("Digite o nome do modelo: ");
 		gets(q->nome);
 		q->codigomodelo=1;
+		
+		return q;
 	}
 	else {
 		nova=(modelo*)malloc(sizeof(modelo));
@@ -81,9 +83,11 @@ modelo *criamodelo(modelo *p, modelo *u) {
 		fflush(stdin);
 		printf("Digite o nome do modelo: ");
 		gets(q->nome);
+		
+		return nova;
 	}
 	
-	return nova;
+	
 }
 
 
