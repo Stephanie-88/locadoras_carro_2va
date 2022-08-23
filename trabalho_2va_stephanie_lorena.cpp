@@ -56,8 +56,21 @@ void menuautomovel () {
 //interfaces
 
 //funções
-void listamodelo() {
+void listamodelo(modelo *p) {
+	modelo *q;
 	
+	q=p;
+	
+	printf("\n=================================================================\n");
+	printf("\nLista de Modelos: \n");
+	printf("\n=================================================================\n");
+	
+	while(q->prox!=NULL ) {
+		printf("%i - %s\n",q->codigomodelo,q->nome);
+		
+		q=q->prox;
+	}
+	printf("%i - %s\n",q->codigomodelo,q->nome);
 }
 
 modelo *criamodelo(modelo *p, modelo *u) {
@@ -97,7 +110,7 @@ int main(){
 	int Op=0, codigo;
 	
 	ponteiros *i=(ponteiros*)malloc(sizeof(ponteiros));//fila de clientes
-	modelo *p, *f=(modelo*)malloc(sizeof(modelo));//lista de modelos
+	modelo *f, *p=(modelo*)malloc(sizeof(modelo));//lista de modelos
 	carro *c=(carro*)malloc(sizeof(carro));//pilha de carros
 	
 	//fila de clientes
@@ -105,9 +118,9 @@ int main(){
 	i->u=NULL;
 	
 	//lista de modelos
-	f->prox=NULL;
-	f->codigomodelo=0;
-	p=f;
+	p->prox=NULL;
+	p->codigomodelo=0;
+	f=p;
 	
 	//pilha de carros
 	c->codigomodelo=0;
@@ -141,6 +154,7 @@ int main(){
 		case 6:
 			break;
 		case 7:
+			listamodelo(p);
 			break;
 		case 8:
 			break;
