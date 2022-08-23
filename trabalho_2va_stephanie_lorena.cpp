@@ -145,13 +145,12 @@ void alteramodelo(modelo *p, int codigo) {
 		if(flag==0){
 			printf("\nNumero invalido!\n\n");
 			system("pause");
-			exit(0);
 		}
 	}
 }
 
 void excluimodelo(modelo *p, int codigo){
-	//verificar se a função excluir e necessaria, pois ela exige medidas de garantia de integridade de dados.	
+	//verificar se a funÃ§Ã£o excluir e necessaria, pois ela exige medidas de garantia de integridade de dados.	
 }
 
 //funcoes
@@ -200,7 +199,7 @@ int main(){
 			case 3:
 				break;
 			case 4:
-				listamodelo(p);
+				/*listamodelo(p);
 				if(listavazia(p)) {
 					system("pause");
 					system("cls");
@@ -211,7 +210,7 @@ int main(){
 					excluimodelo(p,codigo);	
 				}
 				system("pause");
-				system("cls");
+				system("cls");*/
 				break;
 			case 5:
 				break;
