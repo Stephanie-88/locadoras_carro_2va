@@ -55,7 +55,7 @@ void menuautomovel () {
 }
 //interfaces
 
-//funções
+//funcoes
 void listamodelo(modelo *p) {
 	modelo *q;
 	
@@ -106,7 +106,7 @@ modelo *criamodelo(modelo *p, modelo *u) {
 }
 
 
-//funções
+//funcoes
 
 int main(){
 	int Op=0, codigo;
