@@ -89,13 +89,13 @@ modelo *criamodelo(modelo *p, modelo *u) {
 	else {
 		nova=(modelo*)malloc(sizeof(modelo));
 		
-		u->prox=nova;
-		nova->codigomodelo=u->codigomodelo++;
-		nova->prox=NULL;
-		
 		fflush(stdin);
 		printf("Digite o nome do modelo: ");
-		gets(q->nome);
+		gets(nova->nome);
+		
+		nova->codigomodelo=u->codigomodelo++;
+		u->prox=nova;
+		nova->prox=NULL;
 		
 		return nova;
 	}
