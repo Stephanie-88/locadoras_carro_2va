@@ -71,6 +71,7 @@ void listamodelo(modelo *p) {
 		q=q->prox;
 	}
 	printf("%i - %s\n",q->codigomodelo,q->nome);
+	printf("\n=================================================================\n\n");
 }
 
 modelo *criamodelo(modelo *p, modelo *u) {
@@ -157,6 +158,8 @@ int main(){
 			break;
 		case 7:
 			listamodelo(p);
+			system("pause");
+			system("cls");
 			break;
 		case 8:
 			break;
