@@ -155,11 +155,29 @@ void excluimodelo(modelo *p, int codigo){
 //lista----------------------------------------------------------------------------------------
 
 //pilha------------------------------------------------------------------------------------
-pilhacarro *criacarro(carro *c) {
+
+int pilhavazia(carro *c) {
+	if(c->codigomodelo==0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+pilhacarro *criacarro(carro *c, modelo *p) {
 	carro *q, *nova;
+	char modelo[TAM];
+	int codigomodelo;
 	
 	q=c;
 	
+	if(pilhavazia(q)) {
+		c->modelo=;
+		c->codigomodelo=codigomodelo;
+		printf("Digite o numero da placa:");
+		
+	}
 	
 }
 //pilha------------------------------------------------------------------------------------
