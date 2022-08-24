@@ -31,6 +31,11 @@ typedef struct pilhacarro {
 	struct pilhacarro *prox;
 }carro;
 
+typedef struct cadastros {
+	modelo *model;
+	carro *car;
+	cliente *cli;
+}cadastro;
 //interfaces
 void menuinicial() {
 	printf("\n=================================================================\n");
@@ -60,9 +65,9 @@ void menuautomovel () {
 
 //funcoes
 //lista---------------------------------------------------
-int listavazia(modelo *p) {
+int listavazia(cadastro *fi) {
 	
-	if(p->codigomodelo==0) {
+	if(fi->model->codigomodelo) {
 		return 1;
 	}
 	else {
@@ -94,8 +99,8 @@ void listamodelo(modelo *p) {
 	printf("\n=================================================================\n\n");
 }
 
-modelo *criamodelo(modelo *p, modelo *u) {
-	modelo *q, *nova;
+modelo *criamodelo(cadastro *fi) {
+	cadastro *q, *nova;
 	int x;
 	
 	q=p;
@@ -150,18 +155,52 @@ void alteramodelo(modelo *p, int codigo) {
 }
 
 void excluimodelo(modelo *p, int codigo){
-	//verificar se a funcao excluir e necessaria, pois ela exige medidas de garantia de integridade de dados.	
+		
 }
 //lista----------------------------------------------------------------------------------------
+
+//pilha------------------------------------------------------------------------------------
+
+int pilhavazia(carro *c) {
+	if(c->codigomodelo==0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+pilhacarro *criacarro(carro *c, modelo *p) {
+	carro *q, *nova;
+	char modelo[TAM];
+	int codigomodelo;
+	
+	q=c;
+	
+	if(pilhavazia(q)) {
+		strcpy(c->modelo,p->nome);
+		c->codigomodelo=codigomodelo;
+		printf("Digite o numero da placa:");
+		
+	}
+	
+}
+//pilha------------------------------------------------------------------------------------
 
 //funcoes
 
 int main(){
 	int Op=0, codigo;
 	
+	cadastro *fi,*ini=(cadastro*)malloc(sizeof(cadastro));//lista de cadastros, testando lista pois ela é dinamica e flexivel.
 	ponteiros *i=(ponteiros*)malloc(sizeof(ponteiros));//fila de clientes
 	modelo *f, *p=(modelo*)malloc(sizeof(modelo));//lista de modelos
 	carro *c=(carro*)malloc(sizeof(carro));//pilha de carros
+	
+	//alocando lista de cadastros
+	ini->model->codigomodelo=0;
+	ini->model->prox=NULL;
+	ini=fi;
 	
 	//fila de clientes
 	i->p=NULL;
@@ -191,7 +230,7 @@ int main(){
 		
 		switch(Op) {
 			case 1:
-				f=criamodelo(p,f);
+				fi=criamodelo(fi);
 				system("pause");
 				system("cls");
 				break;
