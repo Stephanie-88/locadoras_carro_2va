@@ -4,14 +4,7 @@
 #include<ctype.h>
 
 #define TAM 30
-#define TAM2 10
-
-
-typedef struct listamodelo {
-	char nome[TAM];
-	int codigomodelo;
-	struct listamodelo *prox;
-}modelo;
+#define TAM2 7
 
 typedef struct filacliente {
 	char nome[TAM];
@@ -25,11 +18,19 @@ typedef struct pont{
 }ponteiros;
 
 typedef struct pilhacarro {
-	char modelo[TAM];
-	int codigomodelo;
+	//int codigocarro;
 	char placa[TAM2];
 	struct pilhacarro *prox;
+	//struct pilhacarro *topo;
 }carro;
+
+typedef struct listamodelo {
+	char nome[TAM];
+	int codigomodelo;
+	struct listamodelo *prox;
+	cliente *cabeca;
+	carro *topo;
+}modelo;
 
 //interfaces
 void menuinicial() {
@@ -105,6 +106,8 @@ modelo *criamodelo(modelo *p, modelo *u) {
 		printf("Digite o nome do modelo: ");
 		gets(q->nome);
 		q->codigomodelo=1;
+		q->cabeca=NULL;
+		q->topo=NULL;
 		
 		return q;
 	}
@@ -119,6 +122,8 @@ modelo *criamodelo(modelo *p, modelo *u) {
 		nova->codigomodelo=x+1;
 		u->prox=nova;
 		nova->prox=NULL;
+		nova->cabeca=NULL;
+		nova->topo=NULL;
 		
 		return nova;
 	}	
@@ -152,12 +157,31 @@ void alteramodelo(modelo *p, int codigo) {
 void excluimodelo(modelo *p, int codigo){
 	//verificar se a funcao excluir e necessaria, pois ela exige medidas de garantia de integridade de dados.	
 }
+
+modelo *buscamod(modelo *p) {
+	modelo *aux;
+	int x, flag=0;
+	
+	aux=p;
+	
+	printf("Escolha o modelo: ");
+	scanf("%i",&x);
+	
+	while(aux != NULL && aux->codigomodelo != x) {
+		aux = aux->prox;
+	}
+	if(aux->codigomodelo != x){
+		printf("\n\nOpcao invalida!\n\n");
+		return NULL;
+	}
+		
+	return aux;
+}
 //lista----------------------------------------------------------------------------------------
-
-//pilha------------------------------------------------------------------------------------
-
-int pilhavazia(carro *c) {
-	if(c->codigomodelo==0) {
+//pilha----------------------------------------------------------------------------------------------------
+int pilhavazia(modelo *p) {
+	
+	if(p->topo==NULL) {
 		return 1;
 	}
 	else {
@@ -165,30 +189,42 @@ int pilhavazia(carro *c) {
 	}
 }
 
-pilhacarro *criacarro(carro *c, modelo *p) {
-	carro *q, *nova;
-	char modelo[TAM];
-	int codigomodelo;
+
+void criacarro(modelo *mod) {
+	modelo *q;
+	carro *nova=(carro*)malloc(sizeof(carro));
+	int x;
 	
-	q=c;
+	q=mod;
 	
-	if(pilhavazia(q)) {
-		c->modelo=;
-		c->codigomodelo=codigomodelo;
-		printf("Digite o numero da placa:");
-		
-	}
+	fflush(stdin);
+	printf("Digite a placa: ");
+	gets(nova->placa);
+	
+	nova->prox = q->topo->prox;
+	mod->topo=nova;
 	
 }
-//pilha------------------------------------------------------------------------------------
+
+void listacarro(carro *tp) {
+	
+	
+	if(tp) {
+		printf("\t%s\n",tp->placa);
+		listacarro(tp->prox);
+	}
+}
+//pilha-----------------------------------------------------------------------------------------
+
+
 //funcoes
 
 int main(){
 	int Op=0, codigo;
 	
 	ponteiros *i=(ponteiros*)malloc(sizeof(ponteiros));//fila de clientes
-	modelo *f, *p=(modelo*)malloc(sizeof(modelo));//lista de modelos
-	carro *c=(carro*)malloc(sizeof(carro));//pilha de carros
+	modelo *aux, *f, *p=(modelo*)malloc(sizeof(modelo));//lista de modelos
+	carro *auxc, *c=(carro*)malloc(sizeof(carro));//pilha de carros
 	
 	//fila de clientes
 	i->p=NULL;
@@ -200,14 +236,14 @@ int main(){
 	f=p;
 	
 	//pilha de carros 
-	c->codigomodelo=0;
+	//c->codigomodelo=0;
 	c->prox=NULL;
 	
 	printf("\n=================================================================\n");
 	printf("\nTRABALHO DE 2 VA\n");
 	printf("\nALUNOS: \n");
-	printf("LORENA\n");
-	printf("LUCAS\n");
+	printf("LORENA BRAGA FEREIRA\n");
+	printf("THIAGO\n");
 	printf("STEPHANIE CHRISTINE MATEUS DA SILVA\n");
 	printf("\n=================================================================\n");
 	
@@ -223,6 +259,12 @@ int main(){
 				system("cls");
 				break;
 			case 2:
+				printf("Escolha o modelo do carro: ");
+				listamodelo(p);
+				aux=buscamod(p);
+				criacarro(aux);
+				system("pause");
+				system("cls");
 				break;
 			case 3:
 				break;
@@ -241,6 +283,13 @@ int main(){
 				system("cls");*/
 				break;
 			case 5:
+				printf("Escolha o modelo do carro: ");
+				listamodelo(p);
+				aux=buscamod(p);
+				auxc=aux->topo->topo;
+				listacarro(auxc);
+				system("pause");
+				system("cls");
 				break;
 			case 6:
 				break;
